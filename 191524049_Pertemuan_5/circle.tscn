@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://button/home.png" type="Texture" id=1]
+[ext_resource path="res://fonts/RocknRollOne-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://button/homehover.png" type="Texture" id=3]
+[ext_resource path="res://cicrcle.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.745098, 0.00392157, 0.00392157, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 2 )
+
+[node name="cicrcle" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="home" type="TextureButton" parent="."]
+margin_left = 4.82843
+margin_top = 506.117
+margin_right = 96.8284
+margin_bottom = 598.117
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="random" type="Button" parent="."]
+margin_left = 886.0
+margin_top = 535.0
+margin_right = 1004.0
+margin_bottom = 584.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Random!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="random" to="." method="_on_random_pressed"]
