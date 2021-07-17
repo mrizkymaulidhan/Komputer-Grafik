@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "MyTransform",
+"class": "MyShape",
+"language": "GDScript",
+"path": "res://MyShape.gd"
+}, {
+"base": "Stroke",
+"class": "MyTransform",
+"language": "GDScript",
+"path": "res://MyTransform.gd"
+}, {
+"base": "Node2D",
+"class": "Stroke",
+"language": "GDScript",
+"path": "res://Stroke.gd"
+} ]
+_global_script_class_icons={
+"MyShape": "",
+"MyTransform": "",
+"Stroke": ""
+}
+
+[application]
+
+config/name="191524049_Pertemuan_6"
+run/main_scene="res://menu.tscn"
+config/icon="res://icon.png"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

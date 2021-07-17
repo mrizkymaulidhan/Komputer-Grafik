@@ -1,0 +1,96 @@
+extends MyShape
+
+# Variabel Global
+var glob_Rot = 0
+var glob_Rot2 = 0
+var fscale = 0
+
+func object1(xc, yc):
+	midpointCircle2(xc, yc, 45-fscale, 45-fscale, Color(1, 0.8, 0.8))
+	midpointCircle2(xc, yc, 50-fscale, 5, Color(0, 0.6, 0.6))
+	
+	var rot1 = rotasi(Vector2(xc, yc-35), Vector2(xc, yc), glob_Rot)
+	var rot2 = rotasi(Vector2(xc, yc+35), Vector2(xc, yc), glob_Rot)
+	garisTebal(rot1.x, rot1.y, rot2.x, rot2.y, 1, Color(0, 0.3, 0.3))
+	
+	# rotasi garis ccw 45
+	rot1 = rotasi(Vector2(xc, yc-35), Vector2(xc, yc), glob_Rot+45)
+	rot2 = rotasi(Vector2(xc, yc+35), Vector2(xc, yc), glob_Rot+45)
+	garisTebal(rot1.x, rot1.y, rot2.x, rot2.y, 1, Color(0, 0.3, 0.3))
+	
+	# rotasi garis ccw 90
+	rot1 = rotasi(Vector2(xc, yc-35), Vector2(xc, yc), glob_Rot+90)
+	rot2 = rotasi(Vector2(xc, yc+35), Vector2(xc, yc), glob_Rot+90)
+	garisTebal(rot1.x, rot1.y, rot2.x, rot2.y, 1, Color(0, 0.3, 0.3))
+	
+	# rotasi garis cw 45
+	rot1 = rotasi(Vector2(xc, yc-35), Vector2(xc, yc), glob_Rot+135)
+	rot2 = rotasi(Vector2(xc, yc+35), Vector2(xc, yc), glob_Rot+135)
+	garisTebal(rot1.x, rot1.y, rot2.x, rot2.y, 1, Color(0, 0.3, 0.3))
+
+func obj1Generation(x, y):
+	var trans = Vector2(x,y)
+	
+	for j in 1:
+		for i in 1:
+			object1(trans.x, trans.y)
+			trans = translasi(Vector2(trans.x, trans.y), Vector2(140,0))
+		trans = translasi(Vector2(x, trans.y), Vector2(0,140))
+
+func object2(x, y):
+	var xc = x - 10
+	var yc = y - 10
+	
+	#Segitiga
+	Segitiga(x, y-57, 50, 25, 25, Color(0,0.6,0.6), glob_Rot+0)
+	Segitiga(x+57, y, 50, 25, 25, Color(0,0.6,0.6), glob_Rot+90)
+	Segitiga(x, y+57, 50, 25, 25, Color(0,0.6,0.6), glob_Rot+180)
+	Segitiga(x-57, y, 50, 25, 25, Color(0,0.6,0.6), glob_Rot+270)
+	
+	# Bunga4
+	if glob_Rot2 == 0 || glob_Rot2 % 90 == 0 : persegi(x-20, y-20, 40, 20, Color(1,0.6,0.2))
+	put_pixel(x,y,Color(0,0.3,0.3))
+	midCircle(x, y+20, 20, 20, Color(1,0.6,0.2), glob_Rot+0)
+	midCircle(x-20, y, 20, 20, Color(1,0.6,0.2), glob_Rot+90)
+	midCircle(x, y-20, 20, 20, Color(1,0.6,0.2), glob_Rot+180)
+	midCircle(x+20, y, 20, 20, Color(1,0.6,0.2), glob_Rot+270)
+	midpointCircle2(x, y, 5, 5, Color(0,0.3,0.3))
+	#midpointCircle2(x, y, 50, 5, Color(1,1,1))
+
+func obj2Generation(x, y):
+	var trans = Vector2(x,y)
+	
+	for j in 1:
+		for i in 1:
+			object2(trans.x, trans.y)
+			trans = translasi(Vector2(trans.x, trans.y), Vector2(140,0))
+		trans = translasi(Vector2(x, trans.y), Vector2(0,140))
+
+var maks = false
+	
+func _process(delta):
+	if !maks : 
+		fscale += 5
+		if fscale >= 30 : maks = true
+	else : 
+		fscale -= 5
+		if fscale == 0 : maks = false
+	
+	glob_Rot += 10
+	glob_Rot2 += 45
+
+	update()
+
+func _on_play_pressed():
+	set_process(true)
+
+func _on_stop_pressed():
+	set_process(false)
+
+func _on_home_pressed():
+	get_tree().change_scene("res://menu.tscn")
+
+func _draw():
+	#window_size(1010,590)
+	obj2Generation(140,140)
+	obj1Generation(70,70)
